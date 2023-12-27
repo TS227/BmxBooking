@@ -10,9 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_27_141417) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_27_160924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.string "event_name", null: false
+    t.date "event_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string "session_name", null: false
+    t.tsrange "session_time", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_sessions_on_event_id"
+  end
+
+  create_table "sessions_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "session_id", null: false
+    t.index ["session_id", "user_id"], name: "index_sessions_users_on_session_id_and_user_id"
+    t.index ["user_id", "session_id"], name: "index_sessions_users_on_user_id_and_session_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -28,4 +51,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_27_141417) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "sessions", "events"
 end
