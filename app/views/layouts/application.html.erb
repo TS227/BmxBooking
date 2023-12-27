@@ -23,18 +23,21 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
         </li>
-        <% if current_user.role == 1 %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Admin
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
+        <% if user_signed_in? %> 
+          <% if current_user.role == 1 %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Admin
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Create Event</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+          <% end %>
         <% end %>
+
       </ul>
       
       <!-- Move the user information to the right -->
