@@ -4,10 +4,14 @@ h1 Session Details
   h2 = @slot.slot_name
   p Event time: #{@slot.slot_time}
 = link_to 'Back to Events', events_path(@event)
-= link_to "Destroy", event_slot_path(@slot), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
+
 - if @user_slot
-  = button_to "Destroy", slots_user_path(@user_slot), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: 'btn btn-danger'
+  = button_to "Cancel Booking", slots_user_path(@user_slot), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: 'btn btn-danger'
 - else
   = form_with url: slots_users_path, method: :post, local: true do |form|
     = form.hidden_field :slot_id, value: @slot.id
     = form.submit 'Book Session', class: 'btn btn-primary'
+
+- if user_signed_in?
+  - if current_user.role == 1
+    = link_to "Destroy", event_slot_path(@slot), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }

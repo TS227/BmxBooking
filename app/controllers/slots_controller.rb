@@ -1,5 +1,7 @@
 class SlotsController < ApplicationController
+  before_action :admin_check, only: [:new, :create]
   before_action :find_event, only: [:new, :create, :show]
+  before_action :authenticate_user!, only: [:new, :create, :show]
   before_action :find_slotuser, only: [:show]
 
   def new
@@ -28,9 +30,15 @@ class SlotsController < ApplicationController
     @user_slot = SlotsUser.find_by(slot_id: params[:id], user_id: current_user.id)
   end
 
+  def admin_check
+    redirect_to events_path, alert: 'Access denied' unless current_user.role == 1
+  end
+
   private
 
   def slot_params
     params.require(:slot).permit(:slot_name, :slot_time)
   end
+
+
 end

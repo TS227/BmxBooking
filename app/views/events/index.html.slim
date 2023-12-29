@@ -4,5 +4,6 @@ h1 All Events
   .event
     h2 = link_to event.event_name, event_path(event)
     p Event Date: #{event.event_date}
-
-= link_to 'New Event', new_event_path
+  - if user_signed_in?
+    - if current_user.role == 1
+      = link_to 'New Event', new_event_path
