@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_27_160924) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_29_183815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,20 +21,20 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_27_160924) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sessions", force: :cascade do |t|
-    t.string "session_name", null: false
-    t.tsrange "session_time", null: false
+  create_table "slots", force: :cascade do |t|
+    t.string "slot_name", null: false
+    t.string "slot_time", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_sessions_on_event_id"
+    t.index ["event_id"], name: "index_slots_on_event_id"
   end
 
-  create_table "sessions_users", id: false, force: :cascade do |t|
+  create_table "slots_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "session_id", null: false
-    t.index ["session_id", "user_id"], name: "index_sessions_users_on_session_id_and_user_id"
-    t.index ["user_id", "session_id"], name: "index_sessions_users_on_user_id_and_session_id"
+    t.bigint "slot_id", null: false
+    t.index ["slot_id", "user_id"], name: "index_slots_users_on_slot_id_and_user_id"
+    t.index ["user_id", "slot_id"], name: "index_slots_users_on_user_id_and_slot_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,5 +52,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_27_160924) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "sessions", "events"
+  add_foreign_key "slots", "events"
 end

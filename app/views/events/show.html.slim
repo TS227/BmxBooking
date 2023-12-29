@@ -3,9 +3,13 @@ h1 Event Details
 .event
   h2 = @event.event_name
   p Event Date: #{@event.event_date}
+= link_to 'New Session', new_event_slot_path(@event)
 = link_to 'Back to Events', events_path
 = link_to "Destroy", event_path(@event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
 
 
 
-
+ul
+  - @event.slots.each do |session|
+    li
+      = link_to "#{session.slot_name} - #{session.slot_time}", event_slot_path(@event, session)

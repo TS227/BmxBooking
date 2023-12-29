@@ -1,0 +1,7 @@
+h1 Session Details
+
+.slot
+  h2 = @slot.slot_name
+  p Event time: #{@slot.slot_time}
+= link_to 'Back to Events', events_path(@event)
+= link_to "Destroy", event_slot_path(@slot), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }

@@ -1,0 +1,12 @@
+h1 New Session for 
+= @event.event_name
+
+= form_with model: [ @event, @event.slots.build ] do |f|
+  .field
+    = f.label :slot_name
+    = f.text_field :slot_name, required: true
+
+  .field
+    = f.label :slot_time
+    = f.time_field :slot_time, required: true
+  = f.submit 'Create Session'
