@@ -1,5 +1,6 @@
 class SlotsController < ApplicationController
   before_action :find_event, only: [:new, :create, :show]
+  before_action :find_slotuser, only: [:show]
 
   def new
   end
@@ -10,7 +11,7 @@ class SlotsController < ApplicationController
   end
 
   def show
-    @event
+    @user_slot = SlotsUser.find_by(slot_id: params[:id], user_id: current_user.id)
     @slot = Slot.find(params[:id])
   end
 
@@ -21,6 +22,10 @@ class SlotsController < ApplicationController
 
   def find_event
     @event = Event.find(params[:event_id])
+  end
+
+  def find_slotuser
+    @user_slot = SlotsUser.find_by(slot_id: params[:id], user_id: current_user.id)
   end
 
   private

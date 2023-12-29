@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_29_183815) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_29_210117) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,11 +30,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_183815) do
     t.index ["event_id"], name: "index_slots_on_event_id"
   end
 
-  create_table "slots_users", id: false, force: :cascade do |t|
+  create_table "slots_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "slot_id", null: false
-    t.index ["slot_id", "user_id"], name: "index_slots_users_on_slot_id_and_user_id"
-    t.index ["user_id", "slot_id"], name: "index_slots_users_on_user_id_and_slot_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slot_id"], name: "index_slots_users_on_slot_id"
+    t.index ["user_id"], name: "index_slots_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,4 +55,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_183815) do
   end
 
   add_foreign_key "slots", "events"
+  add_foreign_key "slots_users", "slots"
+  add_foreign_key "slots_users", "users"
 end
