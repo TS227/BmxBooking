@@ -1,0 +1,31 @@
+nav.navbar.navbar-expand-lg.bg-light
+  .container-fluid
+    =link_to "Braintree BMX", root_path, class: "navbar-brand"
+    button.navbar-toggler type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse#navbarNavDropdown
+      ul.navbar-nav
+        li.nav-item
+          = link_to "Events", events_path, class: "nav-link"
+        li.nav-item
+          = link_to "About", about_us_path, class: "nav-link"
+        li.nav-item
+          = link_to "Contact", contact_us_path, class: "nav-link"
+        - if user_signed_in?
+          - if current_user.role == 1
+            li.nav-item.dropdown
+              a.nav-link.dropdown-toggle href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" Admin
+              ul.dropdown-menu
+                li
+                  a.dropdown-item href="#" Create Event
+                li
+                  a.dropdown-item href="#" Another action
+                li
+                  a.dropdown-item href="#" Something else here
+
+      div.ms-auto.d-flex
+        - if user_signed_in?
+          div.me-3.navbar-text Welcome #{current_user.first_name}
+          = button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-danger"
+        - else
+          = button_to "Sign in", new_user_session_path, class: "btn btn-success"
