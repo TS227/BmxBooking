@@ -1,0 +1,11 @@
+h1 Event Details
+
+.event
+  h2 = @event.event_name
+  p Event Date: #{@event.event_date}
+= link_to 'Back to Events', events_path
+= link_to "Destroy", event_path(@event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
+
+
+
+

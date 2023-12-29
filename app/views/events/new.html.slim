@@ -1,0 +1,11 @@
+= form_for @event do |f|
+  .field
+    = f.label :event_name
+    = f.text_field :event_name, required: true
+
+  .field
+    = f.label :event_date
+    = f.date_field :event_date, required: true
+
+  .actions
+    = f.submit 'Create Event'

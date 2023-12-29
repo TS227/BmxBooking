@@ -1,0 +1,8 @@
+h1 All Events
+
+- @events.each do |event|
+  .event
+    h2 = link_to event.event_name, event_path(event)
+    p Event Date: #{event.event_date}
+
+= link_to 'New Event', new_event_path
