@@ -1,10 +1,20 @@
-h1 All Events
-- if user_signed_in?
-  - if current_user.role == 1
-    = link_to 'New Event', new_event_path
-
+.d-flex.w-75.text-center.mx-auto
+  h1 All Events
+  - if user_signed_in?
+    - if current_user.role == 1
+      .ms-auto
+        = link_to 'New Event', new_event_path, class: 'btn btn-success'
 - @events.each do |event|
-  .event
-    h2 = link_to event.event_name, event_path(event)
-    p Event Date: #{event.event_date}
+  .d-flex.justify-content-center
+    .card.mt-4.shadow.w-75.d-flex.justify-center
+      .card-body
+        = link_to event_path(event), style: 'color: #333; text-decoration: none;' do
+            .d-flex.w-100.justify-content-between
+              h2 = event.event_name
+
+              small #{event.event_date}
+            p Sessions: #{event.slots.count}
+
+
+
 

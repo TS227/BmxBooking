@@ -1,18 +1,27 @@
-h1 Event Details
-
-.event
-  h2 = @event.event_name
+.event.w-75.mx-auto
+  .d-flex
+    h2 = @event.event_name
+    - if user_signed_in?
+      - if current_user.role == 1
+        .ms-auto
+          = link_to "Delete", event_path(@event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger'
   p Event Date: #{@event.event_date}
-  = link_to 'Back to Events', events_path
-  - if user_signed_in?
-    - if current_user.role == 1
-      = link_to 'New Session', new_event_slot_path(@event)
-      = link_to "Destroy", event_path(@event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
 
 
 - if @event.slots.any?
-  h2 Sessions for this Event
-  ul
-    - @event.slots.each do |session|
-      li
-        = link_to "#{session.slot_name} - #{session.slot_time}", event_slot_path(@event, session)
+  .d-flex.w-75.mx-auto.mt-5
+    h2 Sessions
+    .ms-auto
+      = link_to 'New', new_event_slot_path(@event), class: 'btn btn-success'
+  - @event.slots.each do |session|
+    .d-flex.justify-content-center
+        .card.mt-4.shadow.w-75.d-flex.justify-center
+          .card-body
+            = link_to event_slot_path(@event, session), style: 'color: #333; text-decoration: none;' do
+
+              .d-flex.w-100.justify-content-between
+                h2 = session.slot_name
+                small #{session.slot_time}
+              p Sessions:
+
+
