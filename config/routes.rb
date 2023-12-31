@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   get 'admin', to: 'home#admin'
   put 'give_admin/:id', to: 'home#give_admin', as: 'give_admin'
   put 'remove_admin/:id', to: 'home#remove_admin', as: 'remove_admin'
+  get 'user/:id', to: 'home#user', as: 'user'
   root 'home#index'
 end

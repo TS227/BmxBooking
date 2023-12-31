@@ -1,0 +1,32 @@
+.w-75.mx-auto
+  h1 My Account 
+  h3 My Details
+  p First Name: #{current_user.first_name}
+  p Last Name: #{current_user.last_name}
+  p Email: #{current_user.email}
+  p Admin: #{current_user.role == 1 ? 'Yes' : 'No'}
+  h3 My Bookings 
+  - if current_user.slots.any?
+    table.table.table-striped
+      thead
+        tr
+          th Event
+          th Session
+          th Date
+          th Time
+          th Cancel Booking
+      tbody
+        - current_user.slots.each do |slot|
+          tr
+            td #{slot.event.event_name}
+            td #{slot.slot_name}
+            td #{slot.event.event_date}
+            td #{slot.slot_time}
+            td.ms-auto
+              = button_to "Cancel Booking", slots_user_path(slot.slots_users.find_by(user: current_user)), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: 'btn btn-danger'
+  - else
+    p You have no bookings yet.
+
+
+  
+  

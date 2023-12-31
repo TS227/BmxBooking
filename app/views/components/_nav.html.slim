@@ -18,7 +18,7 @@ nav.navbar.navbar-expand-lg.bg-light
 
       div.ms-auto.d-flex
         - if user_signed_in?
-          div.me-3.navbar-text Welcome #{current_user.first_name}
+          = link_to "Welcome #{current_user.first_name}", user_path(current_user), class: "nav-link mt-2 me-2"
           = button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-danger"
         - else
           = button_to "Sign in", new_user_session_path, class: "btn btn-success"

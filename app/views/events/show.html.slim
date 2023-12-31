@@ -23,5 +23,11 @@
                 h2 = session.slot_name
                 small #{session.slot_time}
               p Sessions:
+- else
+  .d-flex.w-75.mx-auto.mt-5
+    h2 Sessions
+    .ms-auto
+      = link_to 'Create Sessions', new_event_slot_path(@event), class: 'btn btn-success'
+
 
 

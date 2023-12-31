@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :admin_check, only: [:admin, :give_admin, :remove_admin]
+  before_action :authenticate_user!, only: [:user]
 
   def index
   end
@@ -15,6 +16,13 @@ class HomeController < ApplicationController
     @user.role = 1
     @user.save
     redirect_to events_path, notice: 'Admin added successfully.'
+  end
+
+  def user
+    #show all the users bookings that they have made
+    @user = User.find(params[:id])
+    @slots = @user.slots
+    @user_slot = SlotsUser.find_by(slot_id: params[:id], user_id: current_user.id)
   end
 
   def remove_admin
