@@ -6,5 +6,8 @@ Rails.application.routes.draw do
   resources :slots_users, only: [:create, :destroy]
   get 'contact-us', to: 'home#contact'
   get 'about-us', to: 'home#about'
+  get 'admin', to: 'home#admin'
+  put 'give_admin/:id', to: 'home#give_admin', as: 'give_admin'
+  put 'remove_admin/:id', to: 'home#remove_admin', as: 'remove_admin'
   root 'home#index'
 end

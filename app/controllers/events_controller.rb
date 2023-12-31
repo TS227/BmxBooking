@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.save
-    redirect_to @event
+    redirect_to @event, notice: 'Event created successfully.'
   end
 
   def show
@@ -21,7 +21,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id]).destroy
-    redirect_to events_path
+    redirect_to events_path, notice: 'Event deleted successfully.'
   end
 
   def admin_check

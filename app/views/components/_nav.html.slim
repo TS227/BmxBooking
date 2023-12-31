@@ -13,6 +13,8 @@ nav.navbar.navbar-expand-lg.bg-light
           = link_to "Contact", contact_us_path, class: "nav-link"
         - if user_signed_in?
           - if current_user.role == 1
+            li.nav-item
+              = link_to "Users", admin_path, class: "nav-link"
 
       div.ms-auto.d-flex
         - if user_signed_in?
